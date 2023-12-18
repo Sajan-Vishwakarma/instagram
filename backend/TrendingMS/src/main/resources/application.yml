@@ -1,0 +1,29 @@
+
+server:
+  port: 4004
+
+spring:
+  application:
+    name: TrendingMS
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/trending_ms_activity_db
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+
+TAGS:
+  EXTRACTION_SUCCESS: Successfully extracted tags from the post id
+  DELETION_SUCCESS: Successfully deleted tags from given post id

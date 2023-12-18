@@ -1,0 +1,75 @@
+<div class="container mt-2">
+    <div class="row mt-2">
+        <div class="mt-4 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-sm-8 offset-sm-2">
+            <h3> Register Form </h3>
+
+            <form [formGroup]="registerForm">
+
+                <div class="mb-3">
+                    <label for="fullName" class="fw-bold form-label">Full Name: </label>
+                    <input type="text" class="form-control" name="fullName" id="fullName" formControlName="fullName"
+                        placeholder="Enter full Name">
+                    <div id="fullNameError" *ngIf="(fullName.touched || fullName.dirty) && fullName.errors">
+                        <div [hidden]="!fullName.errors['fullNameInvalid']" class="text-danger">
+                            Enter a valid name. (example: John B Albert).</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="emailId" class="fw-bold form-label">Email Id: </label>
+                    <input type="email" class="form-control" name="emailId" id="emailId" formControlName="emailId"
+                        placeholder="Enter your email">
+                    <div id="emailIdError" *ngIf="(emailId.touched || emailId.dirty) && emailId.errors">
+                        <div [hidden]="!emailId.errors['emailInvalid']" class="text-danger">
+                            Enter a valid email. eg: (example: gogeta&#64;gmail.in) </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="fw-bold form-label">UserName: </label>
+                    <input type="text" class="form-control" name="username" id="username" formControlName="username"
+                        placeholder="choose a unique username">
+                    <div id="usernameError" *ngIf="(username.touched || username.dirty) && username.errors">
+                        <div [hidden]="!username.errors['usernameInvalid']" class="text-danger">
+                            Choose a unique username. eg: (example: gogeta&#64;123) </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="fw-bold form-label">Password: </label>
+                    <input type="password" class="form-control" name="password" id="password" formControlName="password"
+                        placeholder="Enter your password">
+                    <div id="passwordError" *ngIf="(password.touched || password.dirty) && password.errors">
+                        <div *ngIf="password.value!=null && password.errors['passwordInvalid']" class="text-danger">
+                            Password must contain at least one lowercase, uppercase, digits, and special characters
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="fw-bold form-label">Confirm Password: </label>
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
+                        formControlName="confirmPassword" placeholder="Enter your password again">
+                    <div id="confirmPasswordError" class="text-danger"
+                        *ngIf="password.valid && confirmPassword.dirty && (password.value !== confirmPassword.value)">
+                        Password and Confirm Password must match
+                    </div>
+                </div>
+                <button [disabled]="registerForm.invalid || (password.value!==confirmPassword.value)" 
+                class="btn btn-primary" (click)="submit()"> Register </button>
+
+                <div *ngIf="errorMessage" class="fw-bold text-danger text-center">
+                    {{ errorMessage }}
+                </div>
+                <div *ngIf="successMessage" class="fw-bold text-success text-center">
+                    {{ successMessage }}
+                </div>
+            </form>
+            <br>
+            <div class="text-center">
+                <b> Already a user? </b>
+                <a class="btn btn-sm btn-outline-dark" [routerLink]="['/login']"> Log in </a>
+            </div>
+        </div>
+    </div>
+</div>

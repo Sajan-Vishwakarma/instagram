@@ -1,0 +1,172 @@
+<div class="container mb-4" [attr.id]="post.postDTO.postId">
+    <div *ngIf="post" class="card">
+        <div class="card-header bg-gray-300 text-dark">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex gap-2">
+                    <div [routerLink]="['/profile',post.userInfoDTO.username]">
+                        <img class="rounded-circle profile-img" [src]="post.userInfoDTO.profileImageURL" height="40px"
+                            width="40px">
+                    </div>
+                    <div class="btn card-title" [routerLink]="['/profile',post.userInfoDTO.username]">
+                        <span class="fw-bold">{{ post.userInfoDTO.username }}</span> &#x2022; {{ daysAgo }} d
+                    </div>
+                </div>
+                <div>
+                    <div *ngIf=" doesFollows ; else followbtn ">
+                        <button class="btn btn-secondary btn-large" (click)="unfollowUser()"> Unfollow </button>
+                    </div>
+                    <ng-template #followbtn>
+                        <button class="btn btn-primary btn-large" (click)="followUser()"> Follow </button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="cid{{post.postDTO.postId}}" class="carousel slide bg-secondary" data-bs-ride="carousel">
+                <div class="carousel-inner" style="max-height: 17rem;">
+                    <ng-container *ngFor="let image of post.mediaInfos ; index as i">
+                        <div class="carousel-item {{(i == 0 ? 'active' : '')}} " style="height: 17rem;">
+                            <img [src]="image.imgurl" class="d-block w-100 object-fit-cover"
+                                style="object-fit: contain; height: 100%;" data-bs-toggle="modal"
+                                [attr.data-bs-target]="'#staticBackdrop'+post.postDTO.postId">
+                        </div>
+                    </ng-container>
+                </div>
+                <button class="carousel-control-prev" type="button" [attr.data-bs-target]=" '#cid'+post.postDTO.postId"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" [attr.data-bs-target]=" '#cid'+post.postDTO.postId"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="m-2">
+                <p class="card-text"> {{ post.postDTO.caption }} </p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="btns">
+                <div class="left">
+                    {{ likeCount }} <img
+                        src=" {{ didLikedPost ? 'assets/icons/heart-red-icon.png' : 'assets/icons/heart-icon.png' }}"
+                        alt="heart" class="heart" (click)="setLikeUnlikePost()">
+                    {{ commentCount }} <img src="assets/icons/comment-icon.png" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#staticBackdrop'+post.postDTO.postId">
+                </div>
+                <div class="right">
+                    <img src="assets/icons/bookmark-icon.png">
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop{{post.postDTO.postId}}" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="d-flex">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-lg-6 carousel-left d-flex justify-content-center align-items-center">
+                                    <div id="ciid{{post.postDTO.postId}}" class="carousel slide bg-secondary"
+                                        data-bs-ride="carousel" style="width:100%">
+                                        <div class="carousel-inner" style="max-height: 17rem;">
+                                            <ng-container *ngFor="let image of post.mediaInfos ; index as i">
+                                                <div class="carousel-item {{(i == 0 ? 'active' : '')}} ">
+                                                    <img [src]="image.imgurl" class="d-block w-100 object-fit-cover"
+                                                        style="object-fit: contain;">
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            [attr.data-bs-target]=" '#ciid'+post.postDTO.postId" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            [attr.data-bs-target]=" '#ciid'+post.postDTO.postId" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6 carousel-right">
+                                    <div>
+                                        <div class="d-flex justify-content-between mt-2">
+                                            <div class="d-flex gap-2">
+                                                <div [routerLink]="['profile',post.userInfoDTO.username]">
+                                                    <img class="rounded-circle profile-img"
+                                                        [src]="post.userInfoDTO.profileImageURL" height="60px"
+                                                        width="60px">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="btn card-title" style="text-align: start;"
+                                                    [routerLink]="['profile',post.userInfoDTO.username]">
+                                                    <span class="fw-bold fs-4">{{ post.userInfoDTO.username }}</span>
+                                                    &#x2022; {{ daysAgo }} d
+                                                    <p class="text-left"> {{ post.postDTO.caption }} </p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="modal-btns">
+                                                    <span class="fs-3">{{ likeCount }}</span>
+                                                    <img src=" {{ didLikedPost ? 'assets/icons/heart-red-icon.png' : 'assets/icons/heart-icon.png' }}"
+                                                        alt="heart" class="heart" (click)="setLikeUnlikePost()">
+                                                    <span class="fs-3">{{ commentCount }} </span>
+                                                    <img src="assets/icons/comment-icon.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="d-flex flex-column" style="overflow-y:scroll; max-height:20rem;">
+                                            <div class="post-comment" *ngFor="let c of comments">
+                                                <div class="d-flex gap-4">
+                                                    <div>
+                                                        <img height="40px" width="40px"
+                                                            [src]="c.userInfo.profileImageURL" alt=""
+                                                            class="profile-img">
+                                                    </div>
+                                                    <div>
+                                                        <span class="fs-5"> {{ c.userInfo.username }} </span> &#x2022;
+                                                        {{
+                                                        calculateDaysAgo(c.commentsDTO.createdAt) }} d
+                                                        <p> {{ c.commentsDTO.comment }} </p>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="c.userInfo.username == loggedInUser.username">
+                                                    <span (click)="deleteComment(c.commentsDTO.cid)"
+                                                        class="fa fa-trash fa-lg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+                                                <div class="post-comment gap-2">
+                                                    <input type="text" class="form-control" formControlName="comment"
+                                                        placeholder="Post a comment">
+                                                    <button [disabled]="commentForm.invalid"
+                                                        class="btn btn-outline-dark"><i
+                                                            class="fa fa-arrow-right"></i></button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

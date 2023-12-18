@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+<div class="container-fluid pt-5">
+    <div class="row w-75 mx-auto">
+        <div class="col red upload-border">
+            <div *ngIf="!chosenImages" class="upload-image d-flex justify-content-center align-items-center">
+                <label for="upload-image">
+                    <div class="fa fa-upload fa-5x"></div>
+                    <div class="fw-bold">Upload</div>
+                </label>
+                <input id="upload-image" (change)="onFileSelected($event)" required type="file" multiple hidden />
+            </div>
+            <div *ngIf="chosenImages" id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <ng-container *ngFor="let image of chosenImages; index as i">
+                        <div class="carousel-item {{(i == 0 ? 'active' : '')}}">
+                            <img src={{image}} class="d-block w-100 object-fit-cover" alt="...">
+                        </div>
+                    </ng-container>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col blue">
+            <form [formGroup]="postForm" (ngSubmit)="submit()">
+                <div class="mb-2">
+                    <label for="captionLabel" class="form-label fw-bold">Caption</label>
+                    <textarea type="text" class="form-control" rows="6" formControlName="caption"
+                        placeholder="Write your captions..."></textarea>
+                </div>
+                <div class="mb-2">
+                    <label for="privacy" class="form-label fw-bold"> privacy </label>
+                    <select class="form-select" name="privacy" id="privacy" formControlName="privacy">
+                        <option value="">Select post privacy </option>
+                        <option value="1"> Private </option>
+                        <option value="0"> Public </option>
+                    </select>
+                    <div id="privacyError" class="text-danger" *ngIf=" (postForm.controls['privacy'].touched || postForm.controls['privacy'].dirty) 
+                                && postForm.controls['privacy'].invalid ">
+                        <div *ngIf="postForm.controls['privacy'].errors">
+                            <b> Choose post privacy! </b>
+                        </div>
+                    </div>
+                </div>
+                <button [disabled]="postForm.invalid || !chosenImages" class="btn btn-info text-light" type="submit">
+                    Post </button>
+            </form>
+            <div *ngIf="successMessage" class="toast show bg-success bg-opacity-50" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="toast-header">
+                    <i class="fa fa-instagram"> Insta </i>
+                    <strong class="me-auto"></strong>
+                    <small>Just now..</small>
+                    <a type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></a>
+                </div>
+                <div class="toast-body fw-bolder">
+                    {{ successMessage }}
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="toast show bg-danger" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="toast-header">
+                    <i class="fa fa-instagram"> Insta </i>
+                    <strong class="me-auto"></strong>
+                    <small>Just now..</small>
+                    <a type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></a>
+                </div>
+                <div class="toast-body fw-bolder bg-danger">
+                    {{ errorMessage }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

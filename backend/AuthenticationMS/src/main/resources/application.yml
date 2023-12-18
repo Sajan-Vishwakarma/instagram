@@ -1,0 +1,45 @@
+
+server:
+  port: 4001
+
+spring:
+  application:
+    name: AuthenticationMS
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/authentication_ms_user_db
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
+      dialect: org.hibernate.dialect.MySQLDialect
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+user:
+  EMAIL_FOUND: The enetered email id is already in use
+  FOUND: There is already a user with given username
+  notfound: There is no user registered with given username
+  incorrectPassword: Username and Password don't match
+  REGISTRATION_SUCCESS: User registered successfully with username
+  UPDATE_SUCCESS: User update successfully with username
+  PASSWORD_RESET_SUCCESS: Password successfully reset for user
+  EMAIL_MISMATCH: Provide provide correct email to reset password
+  USERNAME_ALREADY_TAKEN: Chosen username is already taken
+
+IMAGE:
+  FILE_PREFIX: assets/images/
+  SAVE_DESTINATION: C:/Users/sajan/Sajan/Code/instagram/frontend/instagram/src/assets/images/
+  NOT_FOUND: No image exists for given Image ID
+  UPLOAD_SUCCESS: Image uploaded successfully with image ID
+  COULD_NOT_SAVE: Image couldn't be save at the destination

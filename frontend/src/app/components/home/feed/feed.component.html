@@ -1,0 +1,8 @@
+<div *ngIf="feedLength == 0">
+    <div class="display-6"> Follow some users to view their activity in feed </div>
+</div>
+<div *ngIf="feedPosts">
+    <div *ngFor="let feedPost of feedPosts">
+        <app-post [post]="feedPost" ></app-post>
+    </div>
+</div>

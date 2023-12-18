@@ -1,0 +1,78 @@
+<div class="container mt-2">
+    <div *ngIf="user" class="row mt-2 d-flex">
+        <div class="container mt-4">
+            <form [formGroup]="editForm" enctype="multipart/form-data" (ngSubmit)="submit()">
+                <div *ngIf="user" class="row mt-2 d-flex">
+                    <div class="col-lg-3 offset-lg-2">
+                        <img class="rounded-circle" height="200" width="200" [src]="profileImageURL">
+                        <input #manga class="m-4" formControlName="image" (change)="readURL($event)" type="file">
+                    </div>
+                    <div class="mt-2 col-lg-4 offset-lg-1">
+                        <div class="mt-4">
+                            <div class="d-flex gap-4">
+                                <div>
+                                    <div class="display-6 fw-bold">
+                                        <!-- <label class="form-label fs-sm" for="username">Username: </label> -->
+                                        <input class="border-0" type="text" name="username" id="username"
+                                            formControlName="username" placeholder="Enter username">
+                                        <div id="usernameError"
+                                            *ngIf="(username.touched || username.dirty) && username.errors">
+                                            <div [hidden]="!username.errors['usernameInvalid']" class="h6 text-danger">
+                                                Enter a single word username. eg: (example: gogeta&#64;123) </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 ml-2">
+                                        <label class="form-label" for="fullName">Fullname: </label> <br>
+                                        <input class="border-0" type="text" name="fullName" id="fullName"
+                                            formControlName="fullName" placeholder="Enter fullname">
+                                        <div id="fullNameError"
+                                            *ngIf="(fullName.touched || fullName.dirty) && fullName.errors">
+                                            <div [hidden]="!fullName.errors['fullNameInvalid']" class="text-danger">
+                                                Enter a valid name. (example: John B Albert).</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label class="form-label" for="bio">Enter your bio: </label>
+                            <textarea type="text" class="border-0 form-control" name="bio" id="bio" formControlName="bio"
+                                placeholder="Enter your bio"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <span class="text-center">
+                            <button [disabled]="editForm.invalid" class="btn btn-md btn-primary"> Update Profile
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <br>
+
+            <div *ngIf="successMessage" class="toast show bg-success bg-opacity-50" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="fa fa-instagram"> Insta </i>
+                    <strong class="me-auto"></strong>
+                    <small>Just now..</small>
+                    <a type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></a>
+                </div>
+                <div class="toast-body fw-bolder">
+                    {{ successMessage }}
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="toast show bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <i class="fa fa-instagram"> Insta </i>
+                    <strong class="me-auto"></strong>
+                    <small>Just now..</small>
+                    <a type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></a>
+                </div>
+                <div class="toast-body fw-bolder bg-danger">
+                    {{ errorMessage }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

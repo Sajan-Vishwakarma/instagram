@@ -1,0 +1,19 @@
+<div class="d-flex flex-column justify-content-around justify-content-between">
+    <div>
+        <!-- <span class="fs-6"> popular searches </span>
+        <div class="d-flex flex-wrap display-fixed ">
+            <button class="btn btn-sm btn-secondary m-2 p-1" (click)=" sorttype='likes' ">
+                #mostLiked
+            </button>
+            <button class="btn btn-sm btn-secondary m-2 p-1" (click)=" sorttype='comments' ">
+                #mostCommented
+            </button>
+        </div>
+        <hr> -->
+    </div>
+    <div>
+        <div *ngFor="let feedPost of feedPosts">
+            <app-post [post]="feedPost"></app-post>
+        </div>
+    </div>
+</div>

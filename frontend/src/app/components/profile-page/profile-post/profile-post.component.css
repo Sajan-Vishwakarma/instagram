@@ -1,0 +1,54 @@
+.profile-img {
+    border-radius: 50%;
+    border: 2px solid lightblue;
+}
+
+.card{
+    max-height: 23rem;
+    max-width: 20rem;
+    min-width: 21rem;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2;
+}
+
+.modal-btns img {
+    max-height: 2rem;
+    max-width: 2rem;
+    margin-right: 20px;
+}
+
+.btns img {
+    max-width: 24px;
+    cursor: pointer;
+}
+
+.modal-dialog {
+    max-width: 100%;
+}
+
+.modal-content {
+    width: 90%;
+    margin: auto;
+}
+
+.post-comment {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 2px;
+}
+
+.carousel-left {
+    height: 80vh;
+    overflow: hidden;
+}
+
+.carousel-right {
+    overflow: auto;
+    height: 80vh;
+}

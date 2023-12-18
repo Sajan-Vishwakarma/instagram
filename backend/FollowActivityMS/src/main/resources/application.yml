@@ -1,0 +1,30 @@
+
+server:
+  port: 4002
+
+spring:
+  application:
+    name: FollowActivityMS
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/follow_ms_activity_db
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+
+follow:
+  connection_absent: Either follower or followee dont exist
+  follow_exists: Follower already follows and followee
+  unfollow_exists: Follower already does not follows and followee

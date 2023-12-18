@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="d-flex flex-column g-2">
+        <div class="w-100 my-4">
+            <input class="form-control" autofocus [(ngModel)]="searchtext" (input)="onSearch()" type="search"
+                placeholder="@ to search user, # to search for posts"/>
+        </div>
+        <div class="row" style="overflow-y: scroll; max-height: 70vh;">
+            <div *ngIf="searchPostsResults" class="d-flex flex-wrap align-items-center">
+                <div *ngFor="let posts of searchPostsResults">
+                    <app-profile-post [post]="posts"></app-profile-post>
+                </div>
+            </div>
+            <div *ngIf="searchUsersResults" class="col-lg-8 offset-lg-2">
+                <div *ngFor="let userSearch of searchUsersResults">
+                    <app-user-list [user]="userSearch"></app-user-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

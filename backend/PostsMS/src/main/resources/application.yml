@@ -1,0 +1,54 @@
+
+server:
+  port: 4003
+
+spring:
+  application:
+    name: PostsMS
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/posts_ms_activity_db
+    username: root
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  cloud:
+    consul:
+      host: localhost
+      discovery:
+        hostname: localhost
+
+MEDIA:
+  DELETE_ALL_SUCCESS: Successfully delete images for given post id
+  ADD_ALL_SUCCESS:  Successfully added images for given post id
+
+POST:
+  CREATION_SUCCESS: Successfully created post with post id
+  DELETION_SUCCESS: Successfully deleted post with post id
+  NOT_FOUND: No post exist with received post id
+  CURRENT_LIKES_COUNT: Post update successfully and current like count is
+  CURRENT_COMMENTS_COUNT: Post update successfully and current comment count is
+
+LIKE:
+  LIKE_SUCCESS: Successfully liked post
+  LIKE_UNSUCCESS: Successfully unliked post
+  ALREADY_UNLIKED: Post is already not liked by user
+  ALREADY_LIKED: Post is already liked by user
+  DELETE_ALL: Deleted all like associated with post
+
+COMMENT:
+  NOT_FOUND: No comment found with given id
+  ADDED: Successfully added comment on post
+  DELETED: Deleted all comment, comment count
+  DELETED_SINGLE: Deleted comment with comment id
+
+POST_ACTIVITY:
+  POST_ID_NOT_FOUND: There is no post with given post id
+  POST_ID_FOUND: There is already a post present with given post id
+  DELETION_SUCCESS: Post Activity deleted successfully with given post id

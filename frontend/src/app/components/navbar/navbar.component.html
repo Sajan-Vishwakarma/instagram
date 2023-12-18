@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg sticky-top bg-light navbar-light">
+    <div class="container">
+        <a class="navbar-brand" [routerLink]="['/']"><img id="insta-logo" src="../../../assets/icons/insta-logo.png"
+                alt="insta Logo" height="30" /></a>
+        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img id="insta-logo" src="{{ fetchProfileImage() }}" alt="insta Logo" height="40" />
+        </a>
+        <div class="collapse navbar-collapse mt-1" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto align-items-right">
+                <li class="nav-item">
+                    <a class="nav-link mx-2" [routerLink]="['/search']"><i class="fa fa-2x fa-search pe-2"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" [routerLink]="['/']"><img height="25px" width="25px" src="assets/icons/home-icon.png"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" [routerLink]="['/explore']"><img height="25px" width="25px" src="assets/icons/explore-icon.png"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" [routerLink]="['/create']"><img height="25px" width="25px" src="assets/icons/add-icon.png"></a>
+                </li>
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img id="insta-logo" class="rounded-circle" src="{{ fetchProfileImage() }}" alt="insta Logo" height="30" width="30" />
+                    </span>
+                    <span class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <a class="nav-link mx-2" [routerLink]="['/profile',user.username]">
+                            <i>
+                                <img id="insta-logo" class="rounded-circle" src="{{ fetchProfileImage() }}" alt="insta Logo" height="30" width="30" />
+                                {{ user.username }}
+                            </i></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="nav-link mx-2" [routerLink]="['/profile/edit']"><i class="fa fa-md fa-user"> Edit Profile
+                            </i></a>
+                        <a class="nav-link mx-2" (click)="logout()"><i class="fa fa-md fa-sign-out pe-8"> Logout </i> </a>
+                    </span>
+                </div>
+            </ul>
+        </div>
+    </div>
+</nav>
